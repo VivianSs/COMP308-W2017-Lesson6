@@ -62,6 +62,13 @@ app.use(passport.session());
 app.use('/', index);
 app.use('/games', games);
 
+// Passport User configuration
+let UserModel = require('./models/users');
+let User = UserModel.User;
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // Handle 404 Errors
   app.use(function(req, res) {
       res.status(400);
