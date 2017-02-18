@@ -1,9 +1,18 @@
+// modules inclusion / requirements / dependencies
 let express = require('express');
 let path = require('path'); // part of node.js core
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
+
+// modules for authentication
+let session = require("express-session");
+let passport = require("passport");
+let passportlocal = require("passport-local");
+let localStrategy = passportlocal.Strategy;
+let flash = require("connect-flash");//display errors / login message
+
 
 // import "mongoose"
 let mongoose = require('mongoose');
@@ -36,6 +45,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
+
+//setup session
+app.use(session({
+  secret: "SomeSecret",
+  saveUninitialized: true,
+  resave: true
+}));
+
+// initialize passport and flash
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // route redirects
 app.use('/', index);
