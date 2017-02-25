@@ -24,6 +24,8 @@ function requireAuth(req, res, next) {
 
 /* GET home page. wildcard */
 router.get('/', (req, res, next) => {
+ console.log("user: "+ req.user);
+ 
   res.render('content/index', {
     title: 'Home',
     games: '',
