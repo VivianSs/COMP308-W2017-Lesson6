@@ -83,7 +83,8 @@ router.get('/:id', requireAuth, (req, res, next) => {
         // show the game details view
         res.render('games/details', {
           title: 'Game Details',
-          games: games
+          games: games,
+          displayName: req.user ? req.user.displayName : ''
         });
       }
     });
